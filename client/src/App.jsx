@@ -1,6 +1,6 @@
 import "./App.css";
 import Layout from "./Layout";
-import { About, Home, Profile, Signin, Signup } from "./pages";
+import { About, Home, Profile, Properties, Signin, Signup } from "./pages";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -27,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
+      },
+      {
+        path: "/properties",
+        element: <Properties />,
       },
     ],
   },
