@@ -2,7 +2,7 @@
 
 const Wrapper = ({ children }) => {
   return (
-    <main className="w-full h-full max-w-[1920px] mx-auto px-10 lg:px-5">
+    <main className="w-full h-full max-w-[1920px] mx-auto px-5 lg:px-10">
       {children}
     </main>
   );

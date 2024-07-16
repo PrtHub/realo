@@ -1,6 +1,6 @@
-import { stagger, useAnimate } from "framer-motion";
 import { Menu } from "lucide-react";
 import { useEffect, useState } from "react";
+import { stagger, useAnimate } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
@@ -35,9 +35,10 @@ const Navbar = () => {
   }, [animate, open, staggerList]);
 
   return (
+    <section className="w-full h-full bg-dark-2">
     <nav
       ref={scope}
-      className="w-full h-full max-w-[1920px] mx-auto px-2 sm:px-5 bg-dark-2 py-5 text-white flex items-center justify-between relative"
+      className="w-full h-full max-w-[1920px] mx-auto text-white flex items-center justify-between p-x2 sm:px-5 lg:px-10 py-5 relative"
     >
       <span className="flex items-center gap-2">
         <img src="/logo.png" alt="realo logo" className="size-6 sm:size-10" />
@@ -48,7 +49,7 @@ const Navbar = () => {
           to="/"
           className={`${
             pathname === "/" &&
-            "bg-dark-1 rounded-lg border border-gray-1 px-5 py-3 "
+            "bg-dark-1 rounded-lg border border-gray-1 px-5 py-2 "
           } w-[88px] `}
         >
           Home
@@ -57,7 +58,7 @@ const Navbar = () => {
           to="/about"
           className={`${
             pathname === "/about" &&
-            "bg-dark-1 rounded-lg border border-gray-1 px-5 py-3 "
+            "bg-dark-1 rounded-lg border border-gray-1 px-5 py-2"
           } w-[90px]`}
         >
           About
@@ -66,7 +67,7 @@ const Navbar = () => {
           to="/properties"
           className={`${
             pathname === "/properties" &&
-            "bg-dark-1/100  rounded-lg border border-gray-1 px-5 py-3"
+            "bg-dark-1/100  rounded-lg border border-gray-1 px-5 py-2"
           } w-[122px]`}
         >
           Properties
@@ -110,6 +111,7 @@ const Navbar = () => {
         </Link>
       </ul>
     </nav>
+    </section>
   );
 };
 
