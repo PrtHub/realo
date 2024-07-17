@@ -2,6 +2,7 @@ import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import { GoogleSigninButton } from "../components";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -86,12 +87,7 @@ const Signup = () => {
         </form>
         <div className="w-full flex flex-col gap-5 items-center">
           <h3 className="text-white font-medium text-lg">OR</h3>
-          <button
-            type="submit"
-            className="bg-white hover:bg-white/90 rounded-lg px-5 py-4 text-dark-2 font-semibold w-full"
-          >
-            Continue With Google
-          </button>
+         <GoogleSigninButton/>
         </div>
         <span className="text-white font-medium">
           Already have an account?{" "}
