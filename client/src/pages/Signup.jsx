@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -9,9 +8,7 @@ const Signup = () => {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  console.log(error)
-
+  
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -23,13 +20,18 @@ const Signup = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await axios.post("/api/auth/signup", formData, {
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
-      const data = res.data;
+      const data = await res.json();
       if (data.success === false) {
         setLoading(false);
         setError(data.message);
+        toast.error(data.message);
         return;
       }
       setLoading(false);
@@ -100,7 +102,7 @@ const Signup = () => {
             Sign in
           </Link>
         </span>
-        {error && <p className='text-red-500 mt-5'>{error}</p>}
+        {error && <p className='text-red-500 mt-5'></p>}
       </section>
     </section>
   );

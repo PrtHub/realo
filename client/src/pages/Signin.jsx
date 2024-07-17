@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -21,18 +20,23 @@ const Signin = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await axios.post("/api/auth/signin", formData, {
-        headers: { "Content-Type": "application/json" },
+      const res = await fetch("/api/auth/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
-      const data = res.data;
+      const data = await res.json();
       if (data.success === false) {
         setLoading(false);
         setError(data.message);
+        toast.error(data.message);
         return;
       }
       setLoading(false);
       setError(null);
-      toast.success("User signed in successfully")
+      toast.success("User signed in successfully");
       navigate("/");
     } catch (error) {
       setLoading(false);
@@ -43,7 +47,7 @@ const Signin = () => {
 
   return (
     <section className="w-full h-svh flex items-start justify-center my-10">
-      <section className="size-full max-w-[360px] sm:max-w-[400px] flex flex-col items-center justify-center gap-5 ">
+      <section className="size-full max-w-[360px] sm:max-w-[400px] flex flex-col items-center justify-center gap-5">
         <h1 className="text-white font-semibold text-3xl mb-5">Sign in</h1>
         <form
           onSubmit={handleSubmit}
@@ -69,7 +73,11 @@ const Signin = () => {
             type="submit"
             className="bg-purple-1 hover:bg-purple-1/70 transition rounded-lg px-5 py-4 text-white font-semibold w-full"
           >
-           {loading ? <Loader2 className="mx-auto animate-spin text-base text-white"/> : "Sign in"} 
+            {loading ? (
+              <Loader2 className="mx-auto animate-spin text-base text-white" />
+            ) : (
+              "Sign in"
+            )}
           </button>
         </form>
         <div className="w-full flex flex-col gap-5 items-center">
@@ -90,7 +98,7 @@ const Signin = () => {
             Sign up
           </Link>
         </span>
-        {error && <p className='text-red-500 mt-5'>{error}</p>}
+        {error && <p className="text-red-500 mt-5"></p>}
       </section>
     </section>
   );
