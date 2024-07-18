@@ -1,4 +1,5 @@
 import "./App.css";
+import PrivateRoute from "./components/PrivateRoute";
 import Layout from "./Layout";
 import { About, Home, Profile, Properties, Signin, Signup } from "./pages";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        element: <Profile />,
+        element: <PrivateRoute element={<Profile/>}/>
       },
       {
         path: "/properties",
