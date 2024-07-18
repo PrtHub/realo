@@ -20,6 +20,7 @@ import {
   updateUserStart,
   updateUserSuccess,
 } from "../redux/userSlice";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const fileRef = useRef(null);
@@ -184,7 +185,7 @@ const Profile = () => {
           />
           <button
             type="submit"
-            className="bg-purple-1 hover:bg-purple-1/70 transition rounded-lg px-5 py-4 text-white font-semibold w-full"
+            className="bg-purple-1 hover:bg-purple-1/70 transition-all duration-200 ease-in-out rounded-lg px-5 py-4 text-white font-semibold w-full"
           >
             {loading ? (
               <Loader2 className="mx-auto animate-spin text-base text-white" />
@@ -192,6 +193,7 @@ const Profile = () => {
               "Update Account"
             )}
           </button>
+          <Link to='/create-property' className="w-full px-4 py-4  bg-white  rounded-lg font-semibold text-base text-center hover:bg-white/90 transition-all duration-200 ease-in-out text-dark-1 capitalize">List your property</Link>
         </form>
         <div className="w-full flex items-center justify-between text-white font-semibold">
           <span

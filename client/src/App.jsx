@@ -3,6 +3,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import Layout from "./Layout";
 import { About, Home, Profile, Properties, Signin, Signup } from "./pages";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import CreateProperty from "./pages/CreateProperty";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/properties",
         element: <Properties />,
+      },
+      {
+        path: "/create-property",
+        element:  <PrivateRoute element={<CreateProperty/>}/>,
       },
     ],
   },
