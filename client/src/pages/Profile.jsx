@@ -10,6 +10,12 @@ import {
 } from "firebase/storage";
 import { app } from "../Firebase";
 import {
+  deleteUserStart,
+  delteUserFailure,
+  delteUserSuccess,
+  signOutUserFailure,
+  signOutUserStart,
+  signOutUserSuccess,
   updateUserFailure,
   updateUserStart,
   updateUserSuccess,
@@ -83,6 +89,42 @@ const Profile = () => {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+
+      if (data.success === false) {
+        dispatch(delteUserFailure(data.message));
+        toast.error(data.message);
+      }
+      dispatch(delteUserSuccess(data));
+      toast.success("User deleted successfully");
+    } catch (error) {
+      dispatch(delteUserFailure(error.message));
+    }
+  };
+
+  const handleSignOut = async () => {
+    try {
+      dispatch(signOutUserStart());
+      const res = await fetch(`/api/auth/signout`);
+      const data = await res.json();
+
+      if (data.success === false) {
+        dispatch(signOutUserFailure(data.message));
+        toast.error(data.message);
+      }
+      dispatch(signOutUserSuccess(data));
+      toast.success("signed out");
+    } catch (error) {
+      dispatch(signOutUserFailure(error.message));
+    }
+  };
+
   return (
     <section className="w-full h-svh flex items-start justify-center my-10">
       <section className="size-full max-w-[360px] sm:max-w-[400px] flex flex-col items-center justify-center gap-5 ">
@@ -152,12 +194,18 @@ const Profile = () => {
           </button>
         </form>
         <div className="w-full flex items-center justify-between text-white font-semibold">
-          <h3 className="hover:text-purple-2 duration-200 transition-all ease-in-out cursor-pointer">
+          <span
+            onClick={handleDelete}
+            className="hover:text-purple-2 duration-200 transition-all ease-in-out cursor-pointer"
+          >
             Delete Account
-          </h3>
-          <h3 className="hover:text-purple-2 duration-200 transition-all ease-in-out cursor-pointer">
+          </span>
+          <span
+            onClick={handleSignOut}
+            className="hover:text-purple-2 duration-200 transition-all ease-in-out cursor-pointer"
+          >
             Sign out
-          </h3>
+          </span>
         </div>
       </section>
     </section>
