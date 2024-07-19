@@ -49,7 +49,7 @@ const Navbar = () => {
           <img src="/logo.png" alt="realo logo" className="size-6 sm:size-10" />
           <h1 className="font-bold text-2xl sm:text-3xl">Realo</h1>
         </span>
-        <ul className="w-[310px] hidden lg:flex items-center gap-10 justify-center text-white text-lg font-medium">
+        <ul className="w-[425px] hidden lg:flex items-center gap-10 justify-center text-white text-lg font-medium">
           <Link
             to="/"
             className={`${
@@ -76,6 +76,15 @@ const Navbar = () => {
             } w-[122px]`}
           >
             Properties
+          </Link>
+          <Link
+            to="/my-listings"
+            className={`${
+              pathname === "/my-listings" &&
+              "bg-dark-1/100  rounded-lg border border-gray-1 px-5 py-2 "
+            } w-[152px] whitespace-nowrap`}
+          >
+            My Listings
           </Link>
         </ul>
         <div className="flex items-center">

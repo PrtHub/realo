@@ -5,5 +5,6 @@ import Signin from "./Signin";
 import Signup from "./Signup";
 import Properties from "./Properties";
 import PropertyDetails from "./PropertyDetails";
+import PropertyListings from "./PropertyListings";
 
-export { Home, About, Signin, Signup, Profile, Properties, PropertyDetails };
+export { Home, About, Signin, Signup, Profile, Properties, PropertyDetails, PropertyListings };

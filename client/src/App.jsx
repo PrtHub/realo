@@ -1,7 +1,16 @@
 import "./App.css";
 import PrivateRoute from "./components/PrivateRoute";
 import Layout from "./Layout";
-import { About, Home, Profile, Properties, PropertyDetails, Signin, Signup } from "./pages";
+import {
+  About,
+  Home,
+  Profile,
+  Properties,
+  PropertyDetails,
+  PropertyListings,
+  Signin,
+  Signup,
+} from "./pages";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import CreateProperty from "./pages/CreateProperty";
 
@@ -28,7 +37,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        element: <PrivateRoute element={<Profile/>}/>
+        element: <PrivateRoute element={<Profile />} />,
       },
       {
         path: "/properties",
@@ -36,11 +45,15 @@ const router = createBrowserRouter([
       },
       {
         path: "/create-property",
-        element:  <PrivateRoute element={<CreateProperty/>}/>,
+        element: <PrivateRoute element={<CreateProperty />} />,
       },
       {
         path: "/property/:id",
-        element:  <PrivateRoute element={<PropertyDetails/>}/>,
+        element: <PrivateRoute element={<PropertyDetails />} />,
+      },
+      {
+        path: "/my-listings",
+        element: <PrivateRoute element={<PropertyListings />} />,
       },
     ],
   },

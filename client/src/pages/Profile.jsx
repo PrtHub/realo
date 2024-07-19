@@ -127,7 +127,7 @@ const Profile = () => {
   };
 
   return (
-    <section className="w-full h-svh flex items-start justify-center my-10">
+    <section className="w-full h-full flex items-start justify-center my-20">
       <section className="size-full max-w-[360px] sm:max-w-[400px] flex flex-col items-center justify-center gap-5 ">
         <h1 className="text-white font-semibold text-3xl mb-5">Profile</h1>
         <form
@@ -193,7 +193,7 @@ const Profile = () => {
               "Update Account"
             )}
           </button>
-          <Link to='/create-property' className="w-full px-4 py-4  bg-white  rounded-lg font-semibold text-base text-center hover:bg-white/90 transition-all duration-200 ease-in-out text-dark-1 capitalize">List your property</Link>
+          <Link to='/create-property' className="w-full px-4 py-4  bg-white  rounded-lg font-semibold text-base text-center hover:bg-white/90 transition-all duration-200 ease-in-out text-dark-1 capitalize">List My property</Link>         
         </form>
         <div className="w-full flex items-center justify-between text-white font-semibold">
           <span

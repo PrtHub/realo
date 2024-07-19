@@ -177,7 +177,7 @@ const CreateProperty = () => {
       <main className="w-full h-full flex items-center justify-center py-20">
         <section className="size-full px-2 sm:max-w-xl md:max-w-2xl sm:px-5 flex flex-col items-center justify-center gap-5 text-white">
           <h1 className="capitalize text-3xl font-semibold tracking-wide mb-16">
-            Fill you property details Below
+            Fill your property details Below
           </h1>
           <form onSubmit={handleSubmit} className="w-full flex flex-col gap-8">
             <label htmlFor="name" className="space-y-2">
