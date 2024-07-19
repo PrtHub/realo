@@ -9,16 +9,33 @@ import {
 import { app } from "../Firebase";
 import toast from "react-hot-toast";
 import { Loader2, Trash2Icon } from "lucide-react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const CreateProperty = () => {
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
     imageUrls: [],
+    name: "",
+    description: "",
+    address: "",
+    type: "rent",
+    bedrooms: 1,
+    bathrooms: 1,
+    regularPrice: 50,
+    discountPrice: 0,
+    offer: false,
+    parking: false,
+    furnished: false,
   });
 
+  const { currentUser } = useSelector((state) => state.user);
+
   const [uploading, setUploading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate()
 
   const handleImageSubmit = () => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
@@ -34,15 +51,15 @@ const CreateProperty = () => {
             ...formData,
             imageUrls: formData.imageUrls.concat(urls),
           });
-          toast.success(`Image uploaded successfully`)
+          toast.success(`Image uploaded successfully`);
           setUploading(false);
         })
         .catch(() => {
-            toast.error(`Image uploaded failed!`)
+          toast.error(`Image uploaded failed!`);
           setUploading(false);
         });
     } else {
-        toast.error(`Something went wrong!`)
+      toast.error(`Something went wrong!`);
       setUploading(false);
     }
   };
@@ -73,12 +90,87 @@ const CreateProperty = () => {
   };
 
   const handleImageDelete = (index) => {
-     setFormData({
+    setFormData({
+      ...formData,
+      imageUrls: formData.imageUrls.filter((_, inx) => inx !== index),
+    });
+    toast.success("Image deleted!");
+  };
+
+  const handleChange = (e) => {
+    if (e.target.id === "sale" || e.target.id === "rent") {
+      setFormData({
         ...formData,
-        imageUrls: formData.imageUrls.filter((_, inx) => inx !== index)
-     })
-     toast.success("Image deleted!")
-  }
+        type: e.target.id,
+      });
+    }
+
+    if (
+      e.target.id === "parking" ||
+      e.target.id === "furnished" ||
+      e.target.id === "offer"
+    ) {
+      setFormData({
+        ...formData,
+        [e.target.id]: e.target.checked,
+      });
+    }
+
+    if (
+      e.target.type === "number" ||
+      e.target.type === "text" ||
+      e.target.type === "textarea"
+    ) {
+      setFormData({
+        ...formData,
+        [e.target.id]: e.target.value,
+      });
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      if (formData.imageUrls.length < 1) {
+        setError("Must upload at least one image!");
+        toast.error("Must upload at least one image!");
+        return;
+      }
+      if (+formData.regularPrice < +formData.discountPrice) {
+        setError("Regular price must be greater than Discount price");
+        toast.error("Regular price must be greater than Discount price");
+        return;
+      }
+
+      setLoading(true);
+      setError(null);
+
+      const res = await fetch("/api/property/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          userRef: currentUser._id,
+        }),
+      });
+      const data = await res.json();
+
+      if (data.success === false) {
+        setError(data.message);
+        toast.error(data.message);
+        return;
+      }
+      setLoading(false);
+       navigate(`/property/${data._id}`)
+      toast.success("Property created successfully");
+    } catch (error) {
+      setLoading(false);
+      setError(error.message);
+    }
+  };
 
   return (
     <Wrapper>
@@ -87,12 +179,14 @@ const CreateProperty = () => {
           <h1 className="capitalize text-3xl font-semibold tracking-wide mb-16">
             Fill you property details Below
           </h1>
-          <form className="w-full flex flex-col gap-8">
+          <form onSubmit={handleSubmit} className="w-full flex flex-col gap-8">
             <label htmlFor="name" className="space-y-2">
               <span className="font-medium text-xl">Property Name</span>
               <input
                 type="text"
                 id="name"
+                value={formData.name}
+                onChange={handleChange}
                 className="w-full bg-dark-2 px-4 py-4 rounded-md border border-dark-3 outline-none text-gray-2 placeholder:text-gray-2 text-base xl:text-lg font-medium"
                 required
               />
@@ -100,8 +194,11 @@ const CreateProperty = () => {
             <label htmlFor="description" className="space-y-2">
               <span className="font-medium text-xl">Description</span>
               <textarea
+                type="textarea"
                 rows={3}
                 id="description"
+                value={formData.description}
+                onChange={handleChange}
                 className="w-full bg-dark-2 px-4 py-4 rounded-md border border-dark-3 outline-none text-gray-2 placeholder:text-gray-2 text-base xl:text-lg font-medium"
                 required
               />
@@ -111,17 +208,21 @@ const CreateProperty = () => {
               <input
                 type="text"
                 id="address"
+                value={formData.address}
+                onChange={handleChange}
                 className="w-full bg-dark-2 px-4 py-4 rounded-md border border-dark-3 outline-none text-gray-2 placeholder:text-gray-2 text-base xl:text-lg font-medium"
                 required
               />
             </label>
-            <label htmlFor="type" className="space-y-2">
+            <label className="space-y-2">
               <span className="font-medium text-xl">Property Type</span>
               <div className="flex items-center gap-5">
                 <span className="flex items-center gap-2">
                   <input
                     type="checkbox"
                     id="sale"
+                    checked={formData.type === "sale"}
+                    onChange={handleChange}
                     className="bg-red-500  rounded-full"
                   />
                   <h3 className="font-medium">Sale</h3>
@@ -130,6 +231,8 @@ const CreateProperty = () => {
                   <input
                     type="checkbox"
                     id="rent"
+                    checked={formData.type === "rent"}
+                    onChange={handleChange}
                     className="bg-red-500  rounded-full"
                   />
                   <h3 className="font-medium">Rent</h3>
@@ -140,6 +243,8 @@ const CreateProperty = () => {
               <input
                 type="checkbox"
                 id="furnished"
+                checked={formData.furnished}
+                onChange={handleChange}
                 className="bg-red-500  rounded-full"
               />
               <span className="font-medium text-xl">Furnished</span>
@@ -148,6 +253,8 @@ const CreateProperty = () => {
               <input
                 type="checkbox"
                 id="parking"
+                checked={formData.parking}
+                onChange={handleChange}
                 className="bg-red-500  rounded-full"
               />
               <span className="font-medium text-xl">Parking Spot</span>
@@ -156,6 +263,8 @@ const CreateProperty = () => {
               <input
                 type="checkbox"
                 id="offer"
+                checked={formData.offer}
+                onChange={handleChange}
                 className="bg-red-500  rounded-full"
               />
               <span className="font-medium text-xl">Offer</span>
@@ -168,6 +277,8 @@ const CreateProperty = () => {
                   id="bedrooms"
                   min="1"
                   max="10"
+                  value={formData.bedrooms}
+                  onChange={handleChange}
                   className="w-full bg-dark-2 px-4 py-4 rounded-md border border-dark-3 outline-none text-gray-2 placeholder:text-gray-2 text-lg font-medium"
                   required
                 />
@@ -179,6 +290,8 @@ const CreateProperty = () => {
                   id="bathrooms"
                   min="1"
                   max="10"
+                  value={formData.bathrooms}
+                  onChange={handleChange}
                   className="w-full bg-dark-2 px-4 py-4 rounded-md border border-dark-3 outline-none text-gray-2 placeholder:text-gray-2 text-lg font-medium"
                   required
                 />
@@ -191,22 +304,28 @@ const CreateProperty = () => {
                   type="number"
                   id="regularPrice"
                   min="50"
-                  max="10000000"
+                  max="1000000000"
                   required
+                  value={formData.regularPrice}
+                  onChange={handleChange}
                   className="w-full bg-dark-2 px-4 py-4 rounded-md border border-dark-3 outline-none text-gray-2 placeholder:text-gray-2 text-lg font-medium"
                 />
               </label>
-              <label htmlFor="discountPrice" className="w-full space-y-2">
-                <span className="font-medium text-xl">Discount Price</span>
-                <input
-                  type="number"
-                  id="discountPrice"
-                  min="50"
-                  max="10000000"
-                  required
-                  className="w-full bg-dark-2 px-4 py-4 rounded-md border border-dark-3 outline-none text-gray-2 placeholder:text-gray-2 text-lg font-medium"
-                />
-              </label>
+              {formData.offer && (
+                <label htmlFor="discountPrice" className="w-full space-y-2">
+                  <span className="font-medium text-xl">Discount Price</span>
+                  <input
+                    type="number"
+                    id="discountPrice"
+                    min="0"
+                    max="10000000000"
+                    required
+                    value={formData.discountPrice}
+                    onChange={handleChange}
+                    className="w-full bg-dark-2 px-4 py-4 rounded-md border border-dark-3 outline-none text-gray-2 placeholder:text-gray-2 text-lg font-medium"
+                  />
+                </label>
+              )}
             </div>
             <div className="w-full flex flex-col gap-5 items-start">
               <span className=" flex items-start flex-col gap-2">
@@ -228,38 +347,43 @@ const CreateProperty = () => {
                   disabled={uploading}
                   className="bg-white px-4 py-4 font-medium text-lg hover:bg-white/80 transition rounded-lg text-dark-2 disabled:cursor-not-allowed disabled:bg-white/80"
                 >
-                {uploading ? <p>Uploading....</p> : "Upload"} 
+                  {uploading ? <p>Uploading....</p> : "Upload"}
                 </button>
               </div>
-             
             </div>
             <div className="grid grid-cols-2 gap-2 sm:gap-5">
-            {formData.imageUrls.length > 0 &&
-              formData.imageUrls.map((imageUrl, index) => (
-                <div key={index} className="w-full h-full relative ">
-                  <img
-                    src={imageUrl}
-                    alt="Property Image"
-                    loading="lazy"
-                    className="w-full h-full object-cover rounded-lg"
+              {formData.imageUrls.length > 0 &&
+                formData.imageUrls.map((imageUrl, index) => (
+                  <div key={index} className="w-full h-full relative ">
+                    <img
+                      src={imageUrl}
+                      alt="Property Image"
+                      loading="lazy"
+                      className="w-full h-full object-cover rounded-lg"
                     />
-                    <button type="button" onClick={() => handleImageDelete(index)} className="bg-red-600 hover:bg-red-500 transition rounded p-1 absolute top-1 right-1 cursor-pointer ">
-                        <Trash2Icon className="size-4 text-white"/>
+                    <button
+                      type="button"
+                      onClick={() => handleImageDelete(index)}
+                      className="bg-red-600 hover:bg-red-500 transition rounded p-1 absolute top-1 right-1 cursor-pointer "
+                    >
+                      <Trash2Icon className="size-4 text-white" />
                     </button>
-                </div>
-              ))}
-              </div>
+                  </div>
+                ))}
+            </div>
             <button
               type="submit"
-              className="bg-purple-1 hover:bg-purple-1/70 transition rounded-lg px-5 py-4 text-white font-semibold w-full"
+              disabled={loading}
+              className="bg-purple-1 hover:bg-purple-1/70 transition rounded-lg px-5 py-4 text-white font-semibold w-full disabled:cursor-not-allowed"
             >
               {loading ? (
-              <Loader2 className="mx-auto animate-spin text-base text-white" />
-            ) : (
-              "Create Post"
-            )}
+                <Loader2 className="mx-auto animate-spin text-base text-white" />
+              ) : (
+                "Create Property Listing"
+              )}
             </button>
           </form>
+          {error && <></>}
         </section>
       </main>
     </Wrapper>

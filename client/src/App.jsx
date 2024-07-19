@@ -1,7 +1,7 @@
 import "./App.css";
 import PrivateRoute from "./components/PrivateRoute";
 import Layout from "./Layout";
-import { About, Home, Profile, Properties, Signin, Signup } from "./pages";
+import { About, Home, Profile, Properties, PropertyDetails, Signin, Signup } from "./pages";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import CreateProperty from "./pages/CreateProperty";
 
@@ -37,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/create-property",
         element:  <PrivateRoute element={<CreateProperty/>}/>,
+      },
+      {
+        path: "/property/:id",
+        element:  <PrivateRoute element={<PropertyDetails/>}/>,
       },
     ],
   },
