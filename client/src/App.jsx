@@ -3,6 +3,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import Layout from "./Layout";
 import {
   About,
+  EditProperty,
   Home,
   Profile,
   Properties,
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: "/create-property",
         element: <PrivateRoute element={<CreateProperty />} />,
+      },
+      {
+        path: "/edit-property/:id",
+        element: <PrivateRoute element={<EditProperty />} />,
       },
       {
         path: "/property/:id",

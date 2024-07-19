@@ -93,13 +93,12 @@ const PropertyListings = () => {
                   <p className="text-base font-normal text-gray-2 line-clamp-3">
                     {list.description}
                   </p>
-                  <button
+                  <Link to={`/edit-property/${list._id}`}
                     type="button"
-                    //   onClick={() => handleImageDelete(index)}
                     className="bg-dark-1 hover:bg-dark-3 transition rounded p-1 absolute top-4 right-4 cursor-pointer "
                   >
                     <Edit className="size-4 text-white" />
-                  </button>
+                  </Link>
                   <button
                     type="button"
                     onClick={() => handlePropertyDelete(list._id)}
