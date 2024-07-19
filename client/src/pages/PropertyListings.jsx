@@ -77,8 +77,9 @@ const PropertyListings = () => {
           <section className="w-full h-full flex flex-wrap items-start justify-start gap-10">
             {listings.length > 0 ? (
               listings.map((list, index) => (
-                <section
+                <Link
                   key={index}
+                  to={`/property/${list._id}`}
                   className="w-full max-w-sm h-fit flex flex-col items-start gap-2 bg-dark-2 border border-dark-3 p-3 rounded-md text-white relative"
                 >
                   <img
@@ -106,10 +107,10 @@ const PropertyListings = () => {
                   >
                     <Trash2Icon className="size-4 text-white" />
                   </button>
-                </section>
+                </Link>
               ))
             ) : (
-              <div>You haven&apos;t list you property yet!</div>
+              <div className="text-base font-medium text-white">You haven&apos;t list you property yet!</div>
             )}
           </section>
         )}

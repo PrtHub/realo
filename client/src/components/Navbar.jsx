@@ -43,7 +43,7 @@ const Navbar = () => {
     <section className="w-full h-full bg-dark-2">
       <nav
         ref={scope}
-        className="w-full h-full max-w-[1920px] mx-auto text-white flex items-center justify-between p-x2 sm:px-5 lg:px-10 py-5 relative"
+        className="w-full h-full max-w-[1920px] mx-auto text-white flex items-center justify-between px-2 sm:px-5 lg:px-10 py-5 relative"
       >
         <span className="flex items-center gap-2">
           <img src="/logo.png" alt="realo logo" className="size-6 sm:size-10" />

@@ -12,6 +12,9 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.6",
     "axios": "^1.7.2",
+    "embla-carousel": "^8.1.7",
+    "embla-carousel-fade": "^8.1.7",
+    "embla-carousel-react": "^8.1.7",
     "firebase": "^10.12.3",
     "framer-motion": "^11.3.2",
     "lucide-react": "^0.408.0",
