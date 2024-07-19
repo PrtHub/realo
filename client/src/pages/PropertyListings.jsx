@@ -35,6 +35,26 @@ const PropertyListings = () => {
     fetchListings();
   }, []);
 
+  const handlePropertyDelete = async (propertyId) => {
+    try {
+      const res = await fetch(`/api/property/delete/${propertyId}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+
+      if (data.success === false) {
+        toast.error(data.message);
+        return;
+      }
+
+      setListings((prev) => prev.filter((list) => list._id !== propertyId));
+
+      toast.success("Property deleted successfully!");
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   return (
     <Wrapper>
       <main className="w-full h-full my-20 flex flex-col gap-10 items-start justify-start">
@@ -67,7 +87,9 @@ const PropertyListings = () => {
                     loading="lazy"
                     className="w-full h-56 object-cover rounded-md"
                   />
-                  <h1 className="text-xl font-medium mt-3 line-clamp-2">{list.name}</h1>
+                  <h1 className="text-xl font-medium mt-3 line-clamp-2">
+                    {list.name}
+                  </h1>
                   <p className="text-base font-normal text-gray-2 line-clamp-3">
                     {list.description}
                   </p>
@@ -80,7 +102,7 @@ const PropertyListings = () => {
                   </button>
                   <button
                     type="button"
-                    //   onClick={() => handleImageDelete(index)}
+                    onClick={() => handlePropertyDelete(list._id)}
                     className="bg-red-600 hover:bg-red-500 transition rounded p-1 absolute top-12 right-4 cursor-pointer "
                   >
                     <Trash2Icon className="size-4 text-white" />
