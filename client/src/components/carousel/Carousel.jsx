@@ -41,7 +41,7 @@ const EmblaCarousel = (props) => {
               key={index}
               onClick={() => onDotButtonClick(index)}
               className={"w-6 h-1 rounded-lg border-2 border-dark-3  bg-dark-3".concat(
-                index === selectedIndex ? "border-2 border-purple-1 " : ""
+                index === selectedIndex ? "border-2 border-purple-1 bg-purple-1" : ""
               )}
             />
           ))}

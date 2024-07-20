@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Wrapper } from "../components";
 import { useEffect, useState } from "react";
 import {
@@ -10,12 +10,16 @@ import {
   ParkingMeter,
 } from "lucide-react";
 import EmblaCarousel from "../components/carousel/Carousel";
+import { useSelector } from "react-redux";
 
 const PropertyDetails = () => {
   const { id } = useParams();
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [owner, setOwner] = useState(null);
+
+  const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
     const fetchTheProperty = async () => {
@@ -38,6 +42,21 @@ const PropertyDetails = () => {
 
     fetchTheProperty();
   }, [id]);
+
+  useEffect(() => {
+    const fetchOwner = async () => {
+      try {
+        const res = await fetch(`/api/user/${property?.userRef}`);
+        const data = await res.json();
+        setOwner(data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    fetchOwner();
+  }, [property?.userRef]);
+
+  console.log(owner);
 
   const OPTIONS = { slidesToScroll: "auto" };
   const SLIDES = property?.imageUrls;
@@ -94,7 +113,7 @@ const PropertyDetails = () => {
               <p className="text-gray-2">{property.description}</p>
             </span>
             <div className="w-full bg-dark-3 h-[1px]" />
-            <section className="w-full flex items-center justify-start flex-wrap gap-10 lg:gap-20">
+            <section className="w-full flex items-center justify-start flex-wrap gap-10 lg:gap-20 my-5">
               <div className="flex flex-col gap-2 items-start justify-start">
                 <span className=" gap-1 font-normal text-lg flex items-center text-gray-2">
                   <BedSingle className="text-gray-2  size-5" /> Bedrooms
@@ -124,6 +143,22 @@ const PropertyDetails = () => {
                 </p>
               </div>
             </section>
+            {currentUser && currentUser._id !== property.userRef && (
+              <>
+                <div className="w-full bg-dark-3 h-[0.5px]" />
+                <section className="flex flex-col items-start justify-start gap-2">
+                  <span className="font-medium text-base text-white">
+                    Do you want to connect with the owner?
+                  </span>
+                  <Link
+                    to={`mailto:${owner.email}?subject=Inquery About ${property.name}`}
+                    className="font-medium bg-purple-1 px-4 py-2 rounded-md text-white hover:bg-purple-1/80 transition uppercase"
+                  >
+                    Click here
+                  </Link>
+                </section>
+              </>
+            )}
           </section>
         </main>
       )}
