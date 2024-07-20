@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
 import Cta from "../components/Cta";
 import Wrapper from "../components/Wrapper";
+import { SEO } from "../components";
 
 const Home = () => {
   return (
     <>
+    <SEO title='Realo'/>
       <Wrapper>
         <section className="w-full h-full flex flex-col">
           <section className="w-full h-full md:h-[500px] xl:h-[700px] bg-dark-1 flex flex-col-reverse md:flex-row items-center justify-center gap-5 py-10 md:py-0">

@@ -21,6 +21,7 @@ import {
   updateUserSuccess,
 } from "../redux/userSlice";
 import { Link } from "react-router-dom";
+import { SEO } from "../components";
 
 const Profile = () => {
   const fileRef = useRef(null);
@@ -127,6 +128,8 @@ const Profile = () => {
   };
 
   return (
+    <>
+     <SEO title={`${currentUser.username} - Realo`}/>
     <section className="w-full h-full flex items-start justify-center my-20">
       <section className="size-full max-w-[360px] sm:max-w-[400px] flex flex-col items-center justify-center gap-5 ">
         <h1 className="text-white font-semibold text-3xl mb-5">Profile</h1>
@@ -211,6 +214,7 @@ const Profile = () => {
         </div>
       </section>
     </section>
+    </>
   );
 };
 

@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import PropertyCard from "../components/PropertyCard";
 import { debounce } from "../utils/debounce";
 import Cta from "../components/Cta";
+import { SEO } from "../components";
 
 const propertyTypeOptions = [
   { value: "all", label: "All" },
@@ -156,97 +157,104 @@ const Properties = () => {
   };
 
   return (
-    <Wrapper>
-      <main className="w-full h-full flex flex-col items-start justify-start gap-20 my-20">
-        <section className="w-full h-full py-10">
-          <Header
-            title="Find Your Dream Property"
-            description="Welcome to Realo, where your dream property awaits in every corner of our beautiful world. Explore our curated selection of properties, each offering a unique story and a chance to redefine your life. With categories to suit every dreamer, your journey begins here."
-          />
-        </section>
-        <div className="w-full h-[0.5px] bg-dark-3" />
-        <section className="w-full h-full flex flex-col items-center justify-start">
-          <form
-            onSubmit={handleSubmit}
-            className="w-full max-w-sm sm:max-w-3xl bg-dark-2 p-2 rounded-md flex -mt-[115px]"
-          >
-            <input
-              type="text"
-              placeholder="Search For a Property"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-dark-1 border border-dark-3 px-2 text-gray-2 placeholder:text-gray-2/50 py-4 outline-none"
+    <>
+      <SEO title={`Properties - Realo`} />
+      <Wrapper>
+        <main className="w-full h-full flex flex-col items-start justify-start gap-20 my-20">
+          <section className="w-full h-full py-10">
+            <Header
+              title="Find Your Dream Property"
+              description="Welcome to Realo, where your dream property awaits in every corner of our beautiful world. Explore our curated selection of properties, each offering a unique story and a chance to redefine your life. With categories to suit every dreamer, your journey begins here."
             />
-            <button
-              type="submit"
-              className="bg-purple-1 rounded-md px-4 text-white font-medium whitespace-nowrap flex items-center gap-1"
-            >
-              <Search className="size-5" />{" "}
-              <span className="hidden sm:block">Find Property</span>
-            </button>
-          </form>
-          <form className="bg-dark-2 p-2 rounded-md w-full flex flex-col sm:flex-row items-center justify-center gap-5 max-w-sm sm:max-w-2xl mx-auto -mt-1">
-            <Select
-              className="w-full text-base"
-              options={propertyTypeOptions}
-              placeholder="Property Type"
-              value={propertyType}
-              onChange={handlePropertyTypeChange}
-              styles={customStyles}
-            />
-            <div className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-center gap-4 sm:gap-2 md:gap-4">
-              <div className="flex items-center gap-2 text-base">
-                <input
-                  type="checkbox"
-                  checked={furnished}
-                  onChange={(e) => handleFurnishedChange(e.target.checked)}
-                  className="appearance-none w-4 h-4 bg-dark-1 border border-dark-3 rounded-md checked:bg-purple-1 checked:border-purple-1 focus:outline-none focus:ring-2 focus:ring-purple-1 focus:ring-opacity-50 cursor-pointer"
-                />
-                <label className="text-gray-2 cursor-pointer">Furnished</label>
-              </div>
-              <div className="flex items-center gap-2 text-base">
-                <input
-                  type="checkbox"
-                  checked={parking}
-                  onChange={(e) => handleParkingChange(e.target.checked)}
-                  className="appearance-none w-4 h-4 bg-dark-1 border border-dark-3 rounded-md checked:bg-purple-1 checked:border-purple-1 focus:outline-none focus:ring-2 focus:ring-purple-1 focus:ring-opacity-50 cursor-pointer"
-                />
-                <label className="text-gray-2 cursor-pointer">Parking</label>
-              </div>
-            </div>
-            <Select
-              className="w-full text-base"
-              options={sortByOptions}
-              placeholder="Sort By"
-              value={sortBy}
-              onChange={handleSortByChange}
-              styles={customStyles}
-            />
-          </form>
-        </section>
-        <section className="w-full h-full flex flex-col gap-10 items-start my-10 lg:my-20">
-          <img
-            src="/abstracts.png"
-            alt="abstracts"
-            className="object-cover w-10 -mb-5"
-            loading="lazy"
-          />
-          <Header
-            title="Discover a World of Possibilities"
-            description="Our portfolio of properties is as diverse as your dreams. Explore the following categories to find the perfect property that resonates with your vision of home."
-          />
-          <section className="mt-5 w-full grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3 md:gap-5 2xl:gap-10 justify-center">
-            {properties.map((property) => (
-              <PropertyCard key={property._id} property={property} />
-            ))}
-            {properties.length < 1 && (
-              <p className="text-base font-medium text-white">No Property Available</p>
-            )}
           </section>
-        </section>
-      </main>
-      <Cta/>
-    </Wrapper>
+          <div className="w-full h-[0.5px] bg-dark-3" />
+          <section className="w-full h-full flex flex-col items-center justify-start">
+            <form
+              onSubmit={handleSubmit}
+              className="w-full max-w-sm sm:max-w-3xl bg-dark-2 p-2 rounded-md flex -mt-[115px]"
+            >
+              <input
+                type="text"
+                placeholder="Search For a Property"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full bg-dark-1 border border-dark-3 px-2 text-gray-2 placeholder:text-gray-2/50 py-4 outline-none"
+              />
+              <button
+                type="submit"
+                className="bg-purple-1 rounded-md px-4 text-white font-medium whitespace-nowrap flex items-center gap-1"
+              >
+                <Search className="size-5" />{" "}
+                <span className="hidden sm:block">Find Property</span>
+              </button>
+            </form>
+            <form className="bg-dark-2 p-2 rounded-md w-full flex flex-col sm:flex-row items-center justify-center gap-5 max-w-sm sm:max-w-2xl mx-auto -mt-1">
+              <Select
+                className="w-full text-base"
+                options={propertyTypeOptions}
+                placeholder="Property Type"
+                value={propertyType}
+                onChange={handlePropertyTypeChange}
+                styles={customStyles}
+              />
+              <div className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-center gap-4 sm:gap-2 md:gap-4">
+                <div className="flex items-center gap-2 text-base">
+                  <input
+                    type="checkbox"
+                    checked={furnished}
+                    onChange={(e) => handleFurnishedChange(e.target.checked)}
+                    className="appearance-none w-4 h-4 bg-dark-1 border border-dark-3 rounded-md checked:bg-purple-1 checked:border-purple-1 focus:outline-none focus:ring-2 focus:ring-purple-1 focus:ring-opacity-50 cursor-pointer"
+                  />
+                  <label className="text-gray-2 cursor-pointer">
+                    Furnished
+                  </label>
+                </div>
+                <div className="flex items-center gap-2 text-base">
+                  <input
+                    type="checkbox"
+                    checked={parking}
+                    onChange={(e) => handleParkingChange(e.target.checked)}
+                    className="appearance-none w-4 h-4 bg-dark-1 border border-dark-3 rounded-md checked:bg-purple-1 checked:border-purple-1 focus:outline-none focus:ring-2 focus:ring-purple-1 focus:ring-opacity-50 cursor-pointer"
+                  />
+                  <label className="text-gray-2 cursor-pointer">Parking</label>
+                </div>
+              </div>
+              <Select
+                className="w-full text-base"
+                options={sortByOptions}
+                placeholder="Sort By"
+                value={sortBy}
+                onChange={handleSortByChange}
+                styles={customStyles}
+              />
+            </form>
+          </section>
+          <section className="w-full h-full flex flex-col gap-10 items-start my-10 lg:my-20">
+            <img
+              src="/abstracts.png"
+              alt="abstracts"
+              className="object-cover w-10 -mb-5"
+              loading="lazy"
+            />
+            <Header
+              title="Discover a World of Possibilities"
+              description="Our portfolio of properties is as diverse as your dreams. Explore the following categories to find the perfect property that resonates with your vision of home."
+            />
+            <section className="mt-5 w-full grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3 md:gap-5 2xl:gap-10 justify-center">
+              {properties.map((property) => (
+                <PropertyCard key={property._id} property={property} />
+              ))}
+              {properties.length < 1 && (
+                <p className="text-base font-medium text-white">
+                  No Property Available
+                </p>
+              )}
+            </section>
+          </section>
+        </main>
+        <Cta />
+      </Wrapper>
+    </>
   );
 };
 

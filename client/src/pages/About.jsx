@@ -1,21 +1,20 @@
-import { Wrapper } from "../components";
+import { SEO, Wrapper } from "../components";
 import Cta from "../components/Cta";
-import {
-  Achievement,
-  Journey,
-  Values,
-} from "../container/about";
+import { Achievement, Journey, Values } from "../container/about";
 
 const About = () => {
   return (
-    <Wrapper>
-      <section className="w-full h-full ">
-        <Journey />
-        <Values />
-        <Achievement />
-       <Cta/>
-      </section>
-    </Wrapper>
+    <>
+      <SEO title="About - Realo" />
+      <Wrapper>
+        <section className="w-full h-full ">
+          <Journey />
+          <Values />
+          <Achievement />
+          <Cta />
+        </section>
+      </Wrapper>
+    </>
   );
 };
 

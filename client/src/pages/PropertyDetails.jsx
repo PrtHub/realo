@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { Wrapper } from "../components";
+import { SEO, Wrapper } from "../components";
 import { useEffect, useState } from "react";
 import {
   BathIcon,
@@ -29,8 +29,8 @@ const PropertyDetails = () => {
         const res = await fetch(`/api/property/get-property/${id}`);
         const data = await res.json();
 
-        if (data.success === false) {
-          setError(data.message);
+        if (data?.success === false) {
+          setError(data?.message);
           return;
         }
         setProperty(data);
@@ -56,8 +56,6 @@ const PropertyDetails = () => {
     fetchOwner();
   }, [property?.userRef]);
 
-  console.log(owner);
-
   const OPTIONS = { slidesToScroll: "auto" };
   const SLIDES = property?.imageUrls;
 
@@ -78,6 +76,8 @@ const PropertyDetails = () => {
   }
 
   return (
+    <>
+    <SEO title={`${property?.name} - Realo`} />
     <Wrapper>
       {property && (
         <main className="w-full h-full flex flex-col items-start justify-start gap-10 text-white my-10 md:my-20">
@@ -163,6 +163,7 @@ const PropertyDetails = () => {
         </main>
       )}
     </Wrapper>
+    </>
   );
 };
 

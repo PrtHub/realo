@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
-import { Wrapper } from "../components";
+import { SEO, Wrapper } from "../components";
 import { Link } from "react-router-dom";
 import { Edit, Loader2, Trash2Icon } from "lucide-react";
 
@@ -56,6 +56,8 @@ const PropertyListings = () => {
   };
 
   return (
+    <>
+   <SEO title={`My Property Listings - Realo`} />
     <Wrapper>
       <main className="w-full h-full my-20 flex flex-col gap-10 items-start justify-start">
         <div className="w-full flex items-center justify-between gap-10">
@@ -122,6 +124,7 @@ const PropertyListings = () => {
         {error && <p className="text-base text-red-500 font-medium">{error}</p>}
       </main>
     </Wrapper>
+    </>
   );
 };
 
