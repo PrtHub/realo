@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Cta from "../components/Cta";
 import Wrapper from "../components/Wrapper";
 
@@ -16,12 +17,12 @@ const Home = () => {
                 Explore our listings to find the home that matches your dreams.
               </p>
               <span className="flex gap-4 items-center">
-                <button className="border border-gray-1 hover:bg-dark-2 transition px-5 py-3 rounded-lg text-white font-medium">
+                <Link to='/about' className="border border-gray-1 hover:bg-dark-2 transition px-5 py-3 rounded-lg text-white font-medium">
                   Learn More
-                </button>
-                <button className="bg-purple-1 hover:bg-purple-1/70 transition px-5 py-3 text-white font-medium rounded-lg">
+                </Link>
+                <Link to='/properties' className="bg-purple-1 hover:bg-purple-1/70 transition px-5 py-3 text-white font-medium rounded-lg">
                   Browse Properties
-                </button>
+                </Link>
               </span>
               <div className="hidden xl:flex gap-2 2xl:gap-5 items-center">
                 <Card title="200+" description="Happy Customers" />
@@ -39,19 +40,19 @@ const Home = () => {
             </figure>
           </section>
           <section className="w-full h-full bg-dark-2 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 p-5 rounded-lg">
-             <div className="border border-dark-3 rounded-lg flex flex-col items-center justify-center gap-4 p-5">
+             <div className="border border-dark-3 hover:bg-dark-1 transition rounded-lg flex flex-col items-center justify-center gap-4 p-5">
               <img src="/home.png" alt="home" loading="lazy" className="size-16 object-cover"/>
               <h4 className="font-medium text-base text-white text-center">Find Your Dream Home</h4>
              </div>
-             <div className="border border-dark-3 rounded-lg flex flex-col items-center justify-center gap-4 p-5">
+             <div className="border border-dark-3 hover:bg-dark-1 transition rounded-lg flex flex-col items-center justify-center gap-4 p-5">
               <img src="/value.png" alt="value" loading="lazy" className="size-16 object-cover"/>
               <h4 className="font-medium text-base text-white text-center">Unlock Property Value</h4>
              </div>
-             <div className="border border-dark-3 rounded-lg flex flex-col items-center justify-center gap-4 p-5">
+             <div className="border border-dark-3 hover:bg-dark-1 transition rounded-lg flex flex-col items-center justify-center gap-4 p-5">
               <img src="/property.png" alt="property" loading="lazy" className="size-16 object-cover"/>
               <h4 className="font-medium text-base text-white text-center">Effortless Property Management</h4>
              </div>
-             <div className="border border-dark-3 rounded-lg flex flex-col items-center justify-center gap-4 p-5">
+             <div className="border border-dark-3 hover:bg-dark-1 transition rounded-lg flex flex-col items-center justify-center gap-4 p-5">
               <img src="/invest.png" alt="invest" loading="lazy" className="size-16 object-cover"/>
               <h4 className="font-medium text-base text-white text-center">Smart Investments, Informed Decisions</h4>
              </div>

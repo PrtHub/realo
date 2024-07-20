@@ -1,4 +1,4 @@
-import { Loader2, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import Header from "../components/Header";
 import Wrapper from "../components/Wrapper";
 import { useCallback, useEffect, useState } from "react";
@@ -7,6 +7,7 @@ import { customStyles } from "../utils/customStyles";
 import toast from "react-hot-toast";
 import PropertyCard from "../components/PropertyCard";
 import { debounce } from "../utils/debounce";
+import Cta from "../components/Cta";
 
 const propertyTypeOptions = [
   { value: "all", label: "All" },
@@ -28,8 +29,6 @@ const Properties = () => {
   const [parking, setParking] = useState(null);
   const [sortBy, setSortBy] = useState(null);
   const [properties, setProperties] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -66,8 +65,6 @@ const Properties = () => {
 
   const fetchProperties = useCallback(async () => {
     try {
-      setLoading(true);
-      setError(null);
       const urlParams = new URLSearchParams(window.location.search);
 
       if (propertyType) {
@@ -80,23 +77,35 @@ const Properties = () => {
         urlParams.set("parking", parking);
       }
       if (sortBy) {
-        urlParams.set("sort", sortBy.value === "newest" ? "createdAt" : sortBy.value === "oldest" ? "createdAt" : sortBy.value === "lowToHigh" ? "regularPrice" : "regularPrice");
-        urlParams.set("order", sortBy.value === "newest" || sortBy.value === "lowToHigh" ? "asc" : "desc");
+        urlParams.set(
+          "sort",
+          sortBy.value === "newest"
+            ? "createdAt"
+            : sortBy.value === "oldest"
+            ? "createdAt"
+            : sortBy.value === "lowToHigh"
+            ? "regularPrice"
+            : "regularPrice"
+        );
+        urlParams.set(
+          "order",
+          sortBy.value === "newest" || sortBy.value === "lowToHigh"
+            ? "asc"
+            : "desc"
+        );
       }
 
-      const res = await fetch(`/api/property/all-properties?${urlParams.toString()}`);
+      const res = await fetch(
+        `/api/property/all-properties?${urlParams.toString()}`
+      );
       const data = await res.json();
       if (data.success === false) {
-        setError(data.error);
         toast.error(data.error);
         return;
       }
       setProperties(data);
     } catch (error) {
-      setError(error.message);
       toast.error("Something went wrong!");
-    } finally {
-      setLoading(false);
     }
   }, [propertyType, furnished, parking, sortBy]);
 
@@ -172,7 +181,8 @@ const Properties = () => {
               type="submit"
               className="bg-purple-1 rounded-md px-4 text-white font-medium whitespace-nowrap flex items-center gap-1"
             >
-              <Search className="size-5" /> <span className="hidden sm:block">Find Property</span>
+              <Search className="size-5" />{" "}
+              <span className="hidden sm:block">Find Property</span>
             </button>
           </form>
           <form className="bg-dark-2 p-2 rounded-md w-full flex flex-col sm:flex-row items-center justify-center gap-5 max-w-sm sm:max-w-2xl mx-auto -mt-1">
@@ -225,21 +235,17 @@ const Properties = () => {
             title="Discover a World of Possibilities"
             description="Our portfolio of properties is as diverse as your dreams. Explore the following categories to find the perfect property that resonates with your vision of home."
           />
-          <section className="mt-5 w-full grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3 md:gap-5 2xl:gap-10">
+          <section className="mt-5 w-full grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3 md:gap-5 2xl:gap-10 justify-center">
             {properties.map((property) => (
               <PropertyCard key={property._id} property={property} />
             ))}
-            {loading && (
-              <Loader2 className="animate-spin size-5 text-white mx-auto" />
-            )}
-            {error && (
-              <p className="text-red-500 text-base mx-auto font-medium">
-                {error}
-              </p>
+            {properties.length < 1 && (
+              <p className="text-base font-medium text-white">No Property Available</p>
             )}
           </section>
         </section>
       </main>
+      <Cta/>
     </Wrapper>
   );
 };

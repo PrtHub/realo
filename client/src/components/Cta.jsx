@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Header from "./Header";
 
 const Cta = () => {
@@ -16,9 +17,9 @@ const Cta = () => {
           title="Start Your Real Estate Journey Today"
           description="Your dream property is just a click away. Whether you're looking for a new home, a strategic investment, or expert real estate advice, Estatein is here to assist you every step of the way. Take the first step towards your real estate goals and explore our available properties or get in touch with our team for personalized assistance."
         />
-        <button className="bg-purple-1 hover:bg-purple-1/70 transition px-5 py-3 text-white font-medium rounded-lg whitespace-nowrap z-10 w-full lg:w-fit lg:absolute lg:right-0">
-          Browse Properties
-        </button>
+        <Link to='/properties' className="bg-purple-1 hover:bg-purple-1/70 transition px-5 py-3 text-white font-medium rounded-lg whitespace-nowrap z-10 w-full lg:w-fit lg:absolute lg:right-0">
+          Explore Properties
+        </Link>
       </section>
     </section>
   );

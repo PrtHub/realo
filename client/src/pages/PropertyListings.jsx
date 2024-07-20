@@ -82,19 +82,22 @@ const PropertyListings = () => {
                   to={`/property/${list._id}`}
                   className="w-full max-w-sm h-fit flex flex-col items-start gap-2 bg-dark-2 border border-dark-3 p-3 rounded-md text-white relative"
                 >
-                  <img
-                    src={list.imageUrls[0]}
-                    alt={list.name}
-                    loading="lazy"
-                    className="w-full h-56 object-cover rounded-md"
-                  />
+                  <figure className="w-full h-52 sm:h-56 object-cover rounded-md overflow-hidden">
+                    <img
+                      src={list.imageUrls[0]}
+                      alt={list.name}
+                      loading="lazy"
+                      className="w-full h-full object-cover rounded-md hover:scale-105 transition-all duration-300 ease-in-out"
+                    />
+                  </figure>
                   <h1 className="text-xl font-medium mt-3 line-clamp-2">
                     {list.name}
                   </h1>
                   <p className="text-base font-normal text-gray-2 line-clamp-3">
                     {list.description}
                   </p>
-                  <Link to={`/edit-property/${list._id}`}
+                  <Link
+                    to={`/edit-property/${list._id}`}
                     type="button"
                     className="bg-dark-1 hover:bg-dark-3 transition rounded p-1 absolute top-4 right-4 cursor-pointer "
                   >
@@ -110,7 +113,9 @@ const PropertyListings = () => {
                 </Link>
               ))
             ) : (
-              <div className="text-base font-medium text-white">You haven&apos;t list you property yet!</div>
+              <div className="text-base font-medium text-white">
+                You haven&apos;t list you property yet!
+              </div>
             )}
           </section>
         )}
