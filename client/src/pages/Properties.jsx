@@ -9,6 +9,7 @@ import PropertyCard from "../components/PropertyCard";
 import { debounce } from "../utils/debounce";
 import Cta from "../components/Cta";
 import { SEO } from "../components";
+import SkeletonLoader from "../components/SekeletonLoader";
 
 const propertyTypeOptions = [
   { value: "all", label: "All" },
@@ -30,7 +31,8 @@ const Properties = () => {
   const [parking, setParking] = useState(null);
   const [sortBy, setSortBy] = useState(null);
   const [properties, setProperties] = useState([]);
-  const [visibleProperties, setVisibleProperties] = useState(8)
+  const [visibleProperties, setVisibleProperties] = useState(8);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -66,6 +68,7 @@ const Properties = () => {
   }, []);
 
   const fetchProperties = useCallback(async () => {
+    setLoading(true);
     try {
       const urlParams = new URLSearchParams(window.location.search);
 
@@ -103,11 +106,14 @@ const Properties = () => {
       const data = await res.json();
       if (data.success === false) {
         toast.error(data.error);
+        setLoading(false);
         return;
       }
       setProperties(data);
     } catch (error) {
       toast.error("Something went wrong!");
+    } finally {
+      setLoading(false);
     }
   }, [propertyType, furnished, parking, sortBy]);
 
@@ -246,17 +252,43 @@ const Properties = () => {
               description="Our portfolio of properties is as diverse as your dreams. Explore the following categories to find the perfect property that resonates with your vision of home."
             />
             <section className="mt-5 w-full grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3 md:gap-5 2xl:gap-10 justify-center">
-              {properties.slice(0, visibleProperties).map((property) => (
-                <PropertyCard key={property._id} property={property} />
-              ))}
-              {properties.length < 1 && (
+              {loading ? (
+                <>
+                  <SkeletonLoader />
+                  <SkeletonLoader />
+                  <SkeletonLoader />
+                  <SkeletonLoader />
+                  <SkeletonLoader />
+                  <SkeletonLoader />
+                  <SkeletonLoader />
+                  <SkeletonLoader />
+                  <SkeletonLoader />
+                  <SkeletonLoader />
+                  <SkeletonLoader />
+                  <SkeletonLoader />
+                  <SkeletonLoader />
+                  <SkeletonLoader />
+                </>
+              ) : properties.length < 1 ? (
                 <p className="text-base font-medium text-white">
                   No Property Available
                 </p>
+              ) : (
+                properties
+                  .slice(0, visibleProperties)
+                  .map((property) => (
+                    <PropertyCard key={property._id} property={property} />
+                  ))
               )}
             </section>
             {visibleProperties < properties.length && (
-              <button type="button"  onClick={handleShowMore} className="bg-white px-5 py-2 font-medium mx-auto mt-10 rounded-md text-dark-1 hover:bg-white/80 transition">Show More</button>
+              <button
+                type="button"
+                onClick={handleShowMore}
+                className="bg-white px-5 py-2 font-medium mx-auto mt-10 rounded-md text-dark-1 hover:bg-white/80 transition"
+              >
+                Show More
+              </button>
             )}
           </section>
         </main>

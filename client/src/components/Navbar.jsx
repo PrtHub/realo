@@ -18,7 +18,7 @@ const Navbar = () => {
       "#mobilenav",
       {
         width: open ? 170 : 0,
-        height: open ? 230 : 0,
+        height: open ? 280 : 0,
         opacity: open ? 1 : 0,
       },
       {
@@ -114,7 +114,7 @@ const Navbar = () => {
         </div>
         <ul
           id="mobilenav"
-          className="absolute top-[85px] right-0 bg-dark-2 rounded-md p-10 lg:hidden flex flex-col items-start justify-start gap-8"
+          className="absolute top-[85px] right-0 bg-dark-2 rounded-md p-10 lg:hidden flex flex-col items-start justify-start gap-8 z-40"
         >
           <Link id="link" to="/" className="text-lg font-medium">
             Home

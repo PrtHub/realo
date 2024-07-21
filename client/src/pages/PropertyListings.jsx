@@ -62,14 +62,14 @@ const PropertyListings = () => {
       <Wrapper>
         <main className="w-full h-full my-20 flex flex-col gap-10 items-start justify-start">
           <div className="w-full flex items-center justify-between gap-10">
-            <h1 className="text-white font-semibold text-3xl  capitalize">
+            <h1 className="text-white font-semibold text-2xl sm:text-3xl text-start  capitalize">
               My Property Listings
             </h1>
             <Link
               to="/create-property"
-              className="w-fit px-4 py-4  bg-white  rounded-lg font-semibold text-base text-center hover:bg-white/90 transition-all duration-200 ease-in-out text-dark-1 capitalize"
+              className="w-fit px-4 py-3 sm:py-4 bg-white  rounded-lg font-semibold text-base text-center hover:bg-white/90 transition-all duration-200 ease-in-out whitespace-nowrap text-dark-1 capitalize"
             >
-              New Listing
+              New <span className="hidden sm:block">Listing</span>
             </Link>
           </div>
           {loading ? (
@@ -137,7 +137,7 @@ const PropertyListings = () => {
                   </Link>
                 ))
               ) : (
-                <div className="text-base font-medium text-white">
+                <div className="text-base font-medium text-white mt-20">
                   You haven&apos;t list you property yet!
                 </div>
               )}

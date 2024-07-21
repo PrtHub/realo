@@ -1,4 +1,4 @@
-const SekeletonLoader = () => {
+const SkeletonLoader = () => {
   return (
     <div className="w-full h-fit  border border-dark-2 rounded-md flex flex-col gap-3 p-2">
       <div className="w-full h-48 sm:h-56 bg-dark-2 rounded-md animate-pulse"></div>
@@ -13,4 +13,4 @@ const SekeletonLoader = () => {
   );
 };
 
-export default SekeletonLoader;
+export default SkeletonLoader;
