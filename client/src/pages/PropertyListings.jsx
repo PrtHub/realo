@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { SEO, Wrapper } from "../components";
 import { Link } from "react-router-dom";
-import { Edit, Loader2, Trash2Icon } from "lucide-react";
+import { Edit, Trash2Icon } from "lucide-react";
 
 const PropertyListings = () => {
   const [listings, setListings] = useState([]);
@@ -20,7 +20,7 @@ const PropertyListings = () => {
         const res = await fetch(`/api/user/listings/${currentUser._id}`);
         const data = await res.json();
         if (data.success === false) {
-          setLoading(false)
+          setLoading(false);
           setError(data.message);
           toast.error(data.message);
           return;
@@ -60,7 +60,7 @@ const PropertyListings = () => {
     <>
       <SEO title={`My Property Listings - Realo`} />
       <Wrapper>
-        <main className="w-full h-screen my-20 flex flex-col gap-10 items-start justify-start">
+        <main className="w-full h-full my-20 flex flex-col gap-10 items-start justify-start">
           <div className="w-full flex items-center justify-between gap-10">
             <h1 className="text-white font-semibold text-3xl  capitalize">
               My Property Listings
@@ -73,8 +73,24 @@ const PropertyListings = () => {
             </Link>
           </div>
           {loading ? (
-            <div className="mt-5 w-full flex items-center justify-center ">
-              <Loader2 className="animate-spin text-white" />
+            <div className="w-full h-full flex flex-wrap items-start justify-start gap-5">
+              <SekeletonLoader />
+              <SekeletonLoader />
+              <SekeletonLoader />
+              <SekeletonLoader />
+              <SekeletonLoader />
+              <SekeletonLoader />
+              <SekeletonLoader />
+              <SekeletonLoader />
+              <SekeletonLoader />
+              <SekeletonLoader />
+              <SekeletonLoader />
+              <SekeletonLoader />
+              <SekeletonLoader />
+              <SekeletonLoader />
+              <SekeletonLoader />
+              <SekeletonLoader />
+              <SekeletonLoader />
             </div>
           ) : (
             <section className="w-full h-full flex flex-wrap items-start justify-start gap-5">
@@ -127,9 +143,7 @@ const PropertyListings = () => {
               )}
             </section>
           )}
-          {error && (
-            <p className="text-base text-red-500 font-medium"></p>
-          )}
+          {error && <p className="text-base text-red-500 font-medium"></p>}
         </main>
       </Wrapper>
     </>
@@ -137,3 +151,14 @@ const PropertyListings = () => {
 };
 
 export default PropertyListings;
+
+const SekeletonLoader = () => (
+  <div className="w-[350px] h-[300px]  border border-dark-2 rounded-md flex flex-col gap-2 p-1">
+    <div className="w-full h-40 bg-dark-2 rounded-md animate-pulse"></div>
+    <div className="w-full flex items-center gap-2 mt-2">
+      <div className="w-[60%] h-6 rounded-md bg-dark-2 animate-pulse"></div>
+      <div className="w-[30%] h-6 rounded-md bg-dark-2 animate-pulse"></div>
+    </div>
+    <div className="w-[100%] h-16 rounded-md bg-dark-2 animate-pulse mt-2"></div>
+  </div>
+);

@@ -45,10 +45,10 @@ const Navbar = () => {
         ref={scope}
         className="w-full h-full max-w-[1920px] mx-auto text-white flex items-center justify-between px-2 sm:px-5 lg:px-10 py-5 relative"
       >
-        <span className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2">
           <img src="/logo.png" alt="realo logo" className="size-6 sm:size-10" />
           <h1 className="font-bold text-2xl sm:text-3xl">Realo</h1>
-        </span>
+        </Link>
         <ul className="w-[425px] hidden lg:flex items-center gap-10 justify-center text-white text-lg font-medium">
           <Link
             to="/"

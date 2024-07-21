@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Header } from "../../components";
 import PropertyCard from "../../components/PropertyCard";
-import { Loader2 } from "lucide-react";
+import SekeletonLoader from "../../components/SekeletonLoader";
 
 const NewestProperties = () => {
   const [properties, setProperties] = useState([]);
@@ -46,7 +46,12 @@ const NewestProperties = () => {
       </div>
       <div className=" w-full grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3 md:gap-5 2xl:gap-10 justify-center">
         {loading ? (
-          <Loader2 className="animate-spin size-4 text-white flex items-center justify-center" />
+          <>
+          <SekeletonLoader/>
+          <SekeletonLoader/>
+          <SekeletonLoader/>
+          <SekeletonLoader/>
+          </>
         ) : error ? (
           <p className="text-red-500 text-base mx-auto">{error}</p>
         ) : properties.length < 1 ? (
