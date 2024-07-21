@@ -125,6 +125,9 @@ const Navbar = () => {
           <Link id="link" to="/properties" className="text-lg font-medium">
             Properties
           </Link>
+          <Link id="link" to="/my-listings" className="text-lg font-medium">
+            My Listings
+          </Link>
         </ul>
       </nav>
     </section>

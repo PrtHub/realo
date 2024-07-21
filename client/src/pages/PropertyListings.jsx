@@ -93,7 +93,7 @@ const PropertyListings = () => {
               <SekeletonLoader />
             </div>
           ) : (
-            <section className="w-full h-full flex flex-wrap items-start justify-start gap-5">
+            <section className="w-full h-screen flex flex-wrap items-start justify-start gap-5">
               {listings.length > 0 ? (
                 listings.map((list, index) => (
                   <Link

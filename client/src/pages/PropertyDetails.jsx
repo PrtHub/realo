@@ -120,14 +120,20 @@ const PropertyDetails = () => {
                   <span className=" gap-1 font-normal text-lg flex items-center text-gray-2">
                     <BedSingle className="text-gray-2  size-5" /> Bedrooms
                   </span>
-                  <p className="text-2xl font-semibold">0{property.bedrooms}</p>
+                  <p className="text-2xl font-semibold">
+                    {property.bedrooms < 10
+                      ? `0${property.bedrooms}`
+                      : property.bedrooms}
+                  </p>
                 </div>
                 <div className="flex flex-col gap-2 items-start justify-start">
                   <span className=" gap-1 font-normal text-lg flex items-center text-gray-2">
                     <BathIcon className="text-gray-2  size-5" /> Bathrooms
                   </span>
                   <p className="text-2xl font-semibold">
-                    0{property.bathrooms}
+                    {property.bathrooms < 10
+                      ? `0${property.bathrooms}`
+                      : property.bathrooms}
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 items-start justify-start">
