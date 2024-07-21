@@ -38,7 +38,7 @@ const PropertyCard = ({ property }) => {
         </p>
         <Link
           to={`/property/${property._id}`}
-          className="bg-purple-1 px-3 sm:px-5 py-2 sm:py-2 rounded-md text-white font-medium text-xs sm:text-base"
+          className="bg-purple-1 hover:bg-purple-1/80 transition px-3 sm:px-5 py-2 sm:py-2 rounded-md text-white font-medium text-xs sm:text-base"
         >
           View Details
         </Link>

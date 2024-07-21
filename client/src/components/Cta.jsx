@@ -12,12 +12,12 @@ const Cta = () => {
           loading="lazy"
         />
       </div>
-      <section className=" w-full lg:w-[70%] h-full flex flex-col lg:flex-row items-center justify-between gap-10 z-10">
+      <section className="w-full lg:w-[70%] h-full flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10 z-10">
         <Header
           title="Start Your Real Estate Journey Today"
           description="Your dream property is just a click away. Whether you're looking for a new home, a strategic investment, or expert real estate advice, Estatein is here to assist you every step of the way. Take the first step towards your real estate goals and explore our available properties or get in touch with our team for personalized assistance."
         />
-        <Link to='/properties' className="bg-purple-1 hover:bg-purple-1/70 transition px-5 py-3 text-white font-medium rounded-lg whitespace-nowrap z-10 w-full lg:w-fit lg:absolute lg:right-0">
+        <Link to='/properties' className="w-fit bg-purple-1 hover:bg-purple-1/70 transition px-5 py-3 text-white font-medium rounded-lg whitespace-nowrap z-10 lg:w-fit lg:absolute lg:right-0">
           Explore Properties
         </Link>
       </section>

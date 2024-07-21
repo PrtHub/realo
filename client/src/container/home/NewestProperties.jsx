@@ -3,7 +3,7 @@ import { Header } from "../../components";
 import PropertyCard from "../../components/PropertyCard";
 import { Loader2 } from "lucide-react";
 
-const PropertiesForRent = () => {
+const NewestProperties = () => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -12,7 +12,7 @@ const PropertiesForRent = () => {
     const fetchProperties = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`/api/property/all-properties?type=rent`);
+        const res = await fetch(`/api/property/all-properties?sortBy=newest`);
         const data = await res.json();
         if (data.success === false) {
           setError(data.error);
@@ -40,13 +40,13 @@ const PropertiesForRent = () => {
           loading="lazy"
         />
         <Header
-          title="Properties For Rent"
+          title="Latest Properties"
           description="Explore our handpicked selection of featured properties. Each listing offers a glimpse into exceptional homes and investments available through Realo."
         />
       </div>
-      <div className="w-full grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3 md:gap-5 2xl:gap-10 justify-center">
+      <div className=" w-full grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3 md:gap-5 2xl:gap-10 justify-center">
         {loading ? (
-          <Loader2 className="animate-spin size-5 text-white mx-auto" />
+          <Loader2 className="animate-spin size-4 text-white flex items-center justify-center" />
         ) : error ? (
           <p className="text-red-500 text-base mx-auto">{error}</p>
         ) : properties.length < 1 ? (
@@ -65,4 +65,4 @@ const PropertiesForRent = () => {
   );
 };
 
-export default PropertiesForRent;
+export default NewestProperties;

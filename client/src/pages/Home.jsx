@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Cta from "../components/Cta";
 import Wrapper from "../components/Wrapper";
 import { SEO } from "../components";
+import { NewestProperties, PropertiesForRent, PropertiesForSale } from "../container/home";
 
 const Home = () => {
   return (
@@ -60,6 +61,9 @@ const Home = () => {
              </div>
              
           </section>
+          <NewestProperties/>
+           <PropertiesForRent/>
+           <PropertiesForSale/>
           <Cta />
         </section>
       </Wrapper>
