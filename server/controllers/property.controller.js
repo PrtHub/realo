@@ -67,9 +67,6 @@ export const getTheProperty = async (req, res, next) => {
 
 export const getAllProperties = async (req, res, next) => {
   try {
-    const limit = parseInt(req.query.limit) || 10;
-    const startIndex = parseInt(req.query.startIndex) || 0;
-
     const furnished =
       req.query.furnished === "true"
         ? true
@@ -95,10 +92,7 @@ export const getAllProperties = async (req, res, next) => {
       furnished,
       parking,
       type,
-    })
-      .sort({[sort]: order })
-      .limit(limit)
-      .skip(startIndex);
+    }).sort({ [sort]: order });
 
     res.status(200).json(properties);
   } catch (error) {
