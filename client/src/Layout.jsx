@@ -5,7 +5,7 @@ import ScrollToTop from "./components/ScrollToTop";
 
 const Layout = () => {
   return (
-    <main className="w-full h-full bg-dark-1">
+    <main className="flex flex-col justify-between bg-dark-1">
       <Navbar />
       <Outlet />
       <ScrollToTop/>
